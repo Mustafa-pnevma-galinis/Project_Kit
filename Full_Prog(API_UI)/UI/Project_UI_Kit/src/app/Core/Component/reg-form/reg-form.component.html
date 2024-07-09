@@ -1,0 +1,310 @@
+
+
+<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+
+<div class="mt-3"  style="display: flex; align-items: center; justify-content: center; flex-direction: column;" >
+
+
+    <h1 style="text-align:center; color:grey ; padding: 7px; font-family: Georgia, 'Times New Roman', Times, serif;">
+
+        Registration Form
+
+    </h1>
+
+    <hr style="height:2px; width: 200px; border-width:0; color:gray; background-color:gray; ">
+    
+</div>
+
+
+<div class="container" style="width:70%">
+
+<form   #form="ngForm"  [formGroup]="RegForm"  (ngSubmit)="onFormSubmit()" name="regForm">
+<div class="mt-2">
+
+    <div class="d-flex">
+
+        <!--First Name-->
+            <div class="p-1 flex-fill" style="margin-right: 50px;">
+
+                <label class="mand form-label">
+                    First Name
+                </label>
+
+                <input type="text" id="FirstName" 
+                        class="form-control" name="FirstName"
+                        maxlength="20" 
+                        formControlName="firstName"
+                        [(ngModel)]="model.FirstName"
+                        onkeydown="return /[a-zA-Zىاآبحلپتثجچهخدذرزژسشصضئءؤةطظعغفقكمنوهي\s]/i.test(event.key)"
+                        >
+
+                        <span style="color: red;" *ngIf="firstName && firstName.touched  && firstName.invalid && firstName.enable">
+                            Field can't be left empty
+                            </span>
+
+            </div>
+            
+            <!--Middle Name-->
+            <div class="p-1 flex-fill">
+
+                <label class="mand form-label">
+
+                    Middle Name
+
+                </label>
+
+                <input type="text" id="MiddleName" 
+                        class="form-control" name="MiddleName"  
+                        maxlength="40"
+                        formControlName="middleName"
+                        [(ngModel)]="model.MiddleName"
+                        onkeydown="return /[a-zA-Zىاآبحلپتثجچهخدذرزژسشصضئءؤةطظعغفقكمنوهي\s]/i.test(event.key)"
+                       >
+
+                       <span style="color: red;" *ngIf="middleName && middleName.touched && middleName.invalid && middleName.enable">
+                        Field can't be left empty
+                        </span>
+                
+            </div>
+
+</div>
+
+<div class="d-flex" >
+
+    <!--Last Name-->
+
+    <div class="p-1 flex-fill" style="margin-right: 50px;" >
+
+        <label class="mand form-label">
+
+            Last Name
+
+        </label>
+
+        <input type="text" id="LastName" 
+                class="form-control" name="LastName"
+                maxlength="20"
+                formControlName="lastName"
+                [(ngModel)]="model.LastName"
+                onkeydown="return /[a-zA-Zىاآبحلپتثجچهخدذرزژسشصضئءؤةطظعغفقكمنوهي\s]/i.test(event.key)">
+        
+                <span style="color: red;" *ngIf="lastName && lastName.touched  && lastName.invalid && lastName.enable">
+                    Field can't be left empty
+                    </span>
+    </div>
+
+    <!--Date-->
+
+    <div class="p-1 flex-fill">
+
+        <label class="mand form-label">
+
+            Birth Date
+
+        </label>
+
+        <input type="date" id="birthDate" class="form-control"
+                value="{{model.BirthDate}}"
+                name="birthDate" 
+                formControlName="dateInput"
+                [ngModel]="model.BirthDate"
+                (ngModelChange)="model.BirthDate = $event"
+               required>
+            
+        <span style="color: red;" *ngIf="dateInput && dateInput.touched && dateInput.invalid">
+            Less than 20 years not accepted
+            </span>
+        
+    </div>
+
+
+</div>
+
+
+<!--Email-->
+<div class="d-flex">
+
+    <div class="form-group p-1 flex-fill" style="margin-right: 50px;">
+
+        <label for="emailInput" class="mand form-label">Email address</label>
+
+        <input type="email" class="form-control" 
+        id="emailInput" placeholder="name@example.com"
+        name="emailInput" formControlName="emailInput"
+        [(ngModel)]="model.Email"
+        ng-required="true"
+        onkeydown="return /[a-z0-9@.]/i.test(event.key)"
+         required>
+
+         <span style="color: red;" *ngIf="emailInput && emailInput.invalid && emailInput.touched">
+            Invalid Email Address; must be in format (name&#64;server.com)
+         </span>
+    
+        </div>
+      
+
+
+
+      <div class="p-1 flex-fill">
+
+        <label class="mand form-label">
+
+            Mobile Number
+
+        </label>
+
+        <input type="tel" id="MobileNumber" 
+        class="form-control" name="MobileNumber" 
+        maxlength="13"
+        formControlName="mobileNumber"
+            [(ngModel)]="model.MobileNumber"
+            onkeydown="return /[0-9+]/i.test(event.key)"
+            >
+
+            <span style="color: red;" *ngIf="mobileNumber && mobileNumber.touched && mobileNumber.invalid && mobileNumber.enable">
+                Field can't be left empty
+                </span>
+        
+    </div>
+</div>
+      
+
+
+
+<div class="container mt-4" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+
+    <hr style="height:2px; width: 200px; border-width:0; color:gray; background-color:gray; ">
+
+</div>
+
+
+    <div class="dflex mt-3" style="display:flex; flex-direction: row;">
+
+        <div class="p-1 flex-fill" style="margin-right: 50px;">
+
+            <label class="mand form-label">
+                Governorate
+            </label>
+            
+            <select (change)="onSelected($event)"
+             class="form-select form-select-sm" 
+            aria-label="Small select example"
+            name="Gov" [(ngModel)]="model.Addresses[0].Governorate"
+            formControlName="gov"
+            >
+
+
+                <option selected>Select Governorate</option>
+                <option *ngFor="let val of govs" [value]="val.governorates" >
+                    {{val.governorates}}
+                 </option>
+            </select>
+
+            <span style="color: red;" *ngIf="gov && gov.touched && gov.invalid && gov.enable">
+                You have to select an item 
+                </span>
+        </div>
+
+
+        <div class="p-1 flex-fill">
+
+            <label class="mand form-label">
+                City
+            </label>
+            
+            <select class="form-select form-select-sm" 
+            aria-label="Small select example" name="City"
+            [(ngModel)]="model.Addresses[0].City"
+            formControlName="city"
+           >
+
+                <option selected>Select City</option>
+                <option [value]="val.cities" *ngFor="let val of cities">
+                    {{val.cities}}
+                 </option>
+                
+            </select>
+
+            <span style="color: red;" *ngIf="city && city.touched && city.invalid && city.enable">
+                You have to select an item 
+                </span>
+        </div>
+
+</div>
+
+
+<div class="dflex" style="display:flex; flex-direction: row;margin-top: 40px;">
+
+    <div class="p-1 flex-fill" style="margin-right: 50px;">
+
+        <label class="mand form-label">
+            Street
+        </label>
+
+        <input type="text" id="Street" 
+        class="form-control" name="Street"
+        [(ngModel)]="model.Addresses[0].Street"
+        formControlName="street"
+        maxlength="200"
+        onkeydown="return /[a-zA-Zىاآبحلپتثجچهخدذرزژسشصضئءؤةطظعغفقكمنوهي\s]/i.test(event.key)"
+        >
+        <span style="color: red;" *ngIf="street && street.touched && street.invalid && street.enable">
+            Field can't be left empty
+            </span>
+    </div>
+
+
+    <div class="p-1 flex-fill" style="margin-right: 50px;">
+
+        <label class="mand form-label">
+            Building Number
+        </label>
+
+        <input type="text" id="BuildingNumber" 
+        class="form-control" name="BuildingNumber"
+        [(ngModel)]="model.Addresses[0].BuildingNumber"
+        formControlName="buildingNumber"
+        onkeydown="return /[a-zA-Z0-9ىاآبحلپتثجچهخدذرزژسشصضئءؤةطظعغفقكمنوهي\s]/i.test(event.key)"
+       >
+       <span style="color: red;" *ngIf="buildingNumber && buildingNumber.touched 
+                                                            && buildingNumber.invalid && buildingNumber.enable">
+        Field can't be left empty
+        </span>
+    </div>
+
+
+    <div class="p-1 flex-fill">
+
+        <label class="mand form-label">
+            Flat Number
+        </label>
+        
+        <input type="text" id="FlatNumber" 
+        class="form-control" name="FlatNumber"
+        [(ngModel)]="model.Addresses[0].FlatNumber"
+        formControlName="flatNumber"
+        onkeydown="return /[0-9]/i.test(event.key)"
+        >
+        <span style="color: red;" *ngIf="flatNumber && flatNumber.touched && flatNumber.invalid && flatNumber.enable">
+            Field can't be left empty
+            </span>
+    </div>
+    
+</div>
+
+<div class="d-grid gap-2 col-6 mx-auto" style="margin-top: 60px;">
+
+    <button type="submit" class="btn btn-primary" 
+    style="font-size: 20px; background-color: green;"
+    [disabled]="RegForm.invalid">
+        Submit
+    </button>
+
+</div>
+
+</div>
+
+</form>
+</div>
+
+

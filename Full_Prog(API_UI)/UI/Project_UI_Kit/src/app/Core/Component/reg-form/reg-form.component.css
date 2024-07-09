@@ -1,0 +1,4 @@
+.mand::after{
+    content:'*';
+    color:red;
+}
